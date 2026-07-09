@@ -242,9 +242,9 @@ function renderTasks() {
 
   list.innerHTML = tasks.map((task) => `
     <li class="item-row ${task.completed ? "is-complete" : ""} ${task.important ? "is-important" : ""}" data-id="${task.id}">
-      <button class="icon-btn" data-action="complete" type="button" aria-label="Toggle complete">${task.completed ? "Done" : "Todo"}</button>
+      <button class="icon-btn" data-action="complete" type="button" aria-label="Toggle complete">${task.completed ? "✓" : "○"}</button>
       <span class="item-text">${escapeHtml(task.text)}</span>
-      <button class="icon-btn" data-action="important" type="button" aria-label="Toggle important">${task.important ? "High" : "Mark"}</button>
+      <button class="icon-btn icon-btn-secondary" data-action="important" type="button" aria-label="Toggle important">${task.important ? "High" : "Mark"}</button>
       <button class="icon-btn delete-btn" data-action="delete" type="button" aria-label="Delete">X</button>
     </li>
   `).join("");
@@ -349,7 +349,7 @@ function renderGoals() {
 
   list.innerHTML = goals.map((goal) => `
     <li class="item-row ${goal.completed ? "is-complete" : ""}" data-id="${goal.id}">
-      <button class="icon-btn" data-action="complete" type="button" aria-label="Toggle goal">${goal.completed ? "Done" : "Todo"}</button>
+      <button class="icon-btn" data-action="complete" type="button" aria-label="Toggle goal">${goal.completed ? "✓" : "○"}</button>
       <span class="item-text">${escapeHtml(goal.text)}</span>
       <button class="icon-btn delete-btn" data-action="delete" type="button" aria-label="Delete">X</button>
     </li>
