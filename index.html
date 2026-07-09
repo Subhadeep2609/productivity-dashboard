@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Productivity Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link
+  href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+  rel="stylesheet"
+/>
+</head>
+<body>
+  <div id="videoBackdrop" class="video-backdrop" aria-hidden="true">
+    <video id="backgroundVideo" class="background-video" autoplay muted loop playsinline>
+      <source src="assets/day.mp4" type="video/mp4">
+    </video>
+    <span class="sky-orbit sky-orbit-one"></span>
+    <span class="sky-orbit sky-orbit-two"></span>
+    <span class="sky-band sky-band-one"></span>
+    <span class="sky-band sky-band-two"></span>
+  </div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="topbar-brand">
+        <p class="eyebrow">Focus desk</p>
+        <h1>Productivity Dashboard</h1>
+      </div>
+      <button id="headerBackBtn" class="back-btn header-back" type="button" aria-hidden="true" style="display:none">Back</button>
+      <div class="topbar-controls">
+        <label class="theme-toggle" for="themeSwitch">
+          <input id="themeSwitch" type="checkbox">
+          <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          <span id="themeLabel">Light</span>
+        </label>
+        <a class="github-link" href="https://github.com/Subhadeep2609" target="_blank" rel="noreferrer">
+          <i class="ri-github-fill"></i>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <main>
+      <section id="dashboardView" class="dashboard-view" aria-label="Dashboard">
+        <aside class="weather-panel">
+          <div>
+            <p class="eyebrow">Weather</p>
+            <h2 id="weatherTemp">--</h2>
+            <p id="weatherPlace">Finding your sky</p>
+          </div>
+          <div class="weather-grid">
+            <span><b id="weatherCondition">Loading</b>Condition</span>
+            <span><b id="weatherHumidity">--</b>Humidity</span>
+            <span><b id="weatherWind">--</b>Wind</span>
+          </div>
+          <div class="utility-panel">
+            <div class="clock-card" aria-live="polite">
+              <span id="dateText">Loading date</span>
+              <strong id="timeText">--:--</strong>
+            </div>
+            
+          </div>
+          <button id="refreshWeather" class="ghost-btn" type="button">Refresh</button>
+        </aside>
+
+        <section class="hero-panel">
+          <p class="eyebrow">Today</p>
+          <h2 id="backgroundGreeting">Ready when you are.</h2>
+          <p id="dashboardSummary">Open a tool, make a little progress, come back for the next thing.</p>
+          <div class="mini-stats">
+            <span><b id="taskStat">0</b> tasks</span>
+            <span><b id="goalStat">0%</b> goals</span>
+            <span><b id="planStat">0</b> plans</span>
+          </div>
+        </section>
+
+        <section class="feature-grid" aria-label="Productivity tools">
+          <button class="feature-card" data-feature="todo" type="button">
+            <span class="feature-icon"><i class="ri-todo-line"></i></span>            
+          </button>
+          <button class="feature-card" data-feature="planner" type="button">
+            <span class="feature-icon"><i class="ri-calendar-todo-line"></i></span>
+            
+          </button>
+          <button class="feature-card" data-feature="goals" type="button">
+            <span class="feature-icon"><i class="ri-target-line"></i></span>
+          </button>
+          <button class="feature-card" data-feature="pomodoro" type="button">
+            <span class="feature-icon"><i class="ri-timer-flash-line"></i></span>
+          </button>
+          <button class="feature-card" data-feature="quotes" type="button">
+            <span class="feature-icon"><i class="ri-chat-quote-line"></i></span>
+          </button>
+        </section>
+      </section>
+
+      <section id="featureView" class="feature-view" hidden>
+        <div class="feature-topline">
+          <button id="backToDashboard" class="back-btn" type="button">Back to Dashboard</button>
+          <p id="activeFeatureName" class="eyebrow">Tool</p>
+        </div>
+
+        <article id="todoFeature" class="tool-panel" data-panel="todo" hidden>
+          <div class="tool-heading">
+            <div>
+              <p class="eyebrow">Tasks</p>
+              <h2>Todo List</h2>
+            </div>
+            <span id="todoCount" class="count-pill">0 open</span>
+          </div>
+          <form id="todoForm" class="entry-form">
+            <input id="todoInput" type="text" placeholder="Add a task" autocomplete="off">
+            <button type="submit">Add</button>
+          </form>
+          <ul id="todoList" class="item-list"></ul>
+        </article>
+
+        <article id="plannerFeature" class="tool-panel" data-panel="planner" hidden>
+          <div class="tool-heading">
+            <div>
+              <p class="eyebrow">Schedule</p>
+              <h2>Daily Planner</h2>
+            </div>
+            <button id="clearPlanner" class="ghost-btn" type="button">Clear</button>
+          </div>
+          <div id="plannerSlots" class="planner-list"></div>
+        </article>
+
+        <article id="goalsFeature" class="tool-panel" data-panel="goals" hidden>
+          <div class="tool-heading">
+            <div>
+              <p class="eyebrow">Goals</p>
+              <h2>Daily Goals</h2>
+            </div>
+            <span id="goalsProgressText" class="count-pill">0 of 0</span>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="goalsProgressBar"></span></div>
+          <form id="goalForm" class="entry-form">
+            <input id="goalInput" type="text" placeholder="Add a goal" autocomplete="off">
+            <button type="submit">Add</button>
+          </form>
+          <ul id="goalList" class="item-list"></ul>
+        </article>
+
+        <article id="pomodoroFeature" class="tool-panel timer-panel" data-panel="pomodoro" hidden>
+          <p id="timerMode" class="eyebrow">Work Session</p>
+          <h2 id="timerDisplay">25:00</h2>
+          <p id="timerMessage">Ready for one focused block.</p>
+          <div class="timer-controls">
+            <button id="startTimer" type="button">Start</button>
+            <button id="pauseTimer" class="secondary-btn" type="button">Pause</button>
+            <button id="resetTimer" class="ghost-btn" type="button">Reset</button>
+          </div>
+        </article>
+
+        <article id="quotesFeature" class="tool-panel quote-panel" data-panel="quotes" hidden>
+          <div class="tool-heading">
+            <div>
+              <p class="eyebrow">Motivation</p>
+              <h2>Quote</h2>
+            </div>
+            <button id="newQuote" class="ghost-btn" type="button">New</button>
+          </div>
+          <blockquote>
+            <p id="quoteText">A small steady effort still counts.</p>
+          </blockquote>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
